@@ -1,13 +1,13 @@
-from flask import Flask
+from flask import Flask, render_template,redirect
 
 app = Flask(__name__)
 
-# 路由方式一
+# 第一种路由方式
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     return "Index"
 
-# 路由方式二
+# 第二种路由方式
 def order():
     return "Order"
 

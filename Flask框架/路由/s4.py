@@ -1,6 +1,5 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template,redirect,url_for
 from werkzeug.routing import BaseConverter
-
 
 app = Flask(__name__)
 
@@ -33,16 +32,14 @@ class RegexConverter(BaseConverter):
 
 
 # 添加到flask中
-app.url_map.converters["xxx"] = RegexConverter
+app.url_map.converters['xxx'] = RegexConverter
 
-
-@app.route('/index/<xxx("\d+"):nid>', methods=["GET", "POST"])
+@app.route('/index/<xxx("\d+"):nid>', methods=['GET', 'POST'])
 def index(nid):
     print(nid, type(nid))
-    v=url_for("index", nid=999)
-    print(v)
+    url_for('index', nid=999)
     return "Index"
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run()
