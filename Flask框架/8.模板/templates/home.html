@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Home</h1>
+    <hr>
+
+    <h4>变量: </h4>
+    <p>name: {{ name }}</p>
+    <p>age: {{ age }}</p>
+    <p>likes: {{ likes }}</p>
+
+    <hr>
+    <h4>标签: </h4>
+    <h5>if语句</h5>
+    {% if age >= 18 %}
+        <p>{{ name }}已成年</p>
+    {% elif age >= 6 %}
+        <p>{{ name }}开始上学</p>/
+    {% else %}
+        <p>{{ name }}年龄不满足</p>
+    {% endif %}
+
+    <h5>for循环</h5>
+    {% for like in likes %}
+        {% if loop.first %}
+            <p style="color: red">{{ like }}</p>
+        {% elif loop.last %}
+            <p style="color: blue">{{ like }}</p>
+        {% else %}
+            <p>{{ like }}</p>
+        {% endif %}
+
+        index: {{ loop.index }},
+        index0: {{ loop.index0 }},
+        revindex: {{ loop.revindex }},
+        revindex0: {{ loop.revindex0}}
+
+    {% else %}
+        <b>else</b>
+    {% endfor %}
+
+    <br><br><br><br><br><br>
+    <br><br><br><br><br><br>
+    <br><br><br><br><br><br>
+</body>
+</html>
+

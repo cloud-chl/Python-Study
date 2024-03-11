@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>父模板</title>
+
+    {#  通用csss文件  #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    {% block extcss %}
+    {% endblock %}
+    <styles></styles>
+</head>
+<body>
+
+    {% block head %}
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
+    {% block foot %}
+    {% endblock %}
+
+    {#    通用的js文件    #}
+    <script src = "{{ url_for('static', filename='js/base.js') }}"> </script>
+    {% block extjs %}
+    {% endblock %}
+</body>
+</html>
