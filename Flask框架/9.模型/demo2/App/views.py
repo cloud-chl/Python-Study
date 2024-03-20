@@ -1,6 +1,6 @@
 # views.py : 路由 + 视图函数
 
-from flask import Blueprint
+from flask import Blueprint, request, render_template
 from sqlalchemy import desc, and_, or_, not_
 
 from .models import *
