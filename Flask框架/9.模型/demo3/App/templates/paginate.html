@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+</head>
+<body>
+<div class="container">
+    <h2>分页功能</h2>
+    <hr>
+
+    <ul class="list-group">
+        {% for user in p.items %}
+            <li class="list-group-item">{{ user.name }}</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <ul class="pagination">
+        <li class="page-item">
+            {% if p.has_prev %}
+                <a class="page-link" href="/paginate/?page={{ p.prev_num }}&per_page=3" aria-label="Previous">
+            {% else %}
+                <a class="page-link" href="javascript:" aria-label="Previous">
+            {% endif %}
+            <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        {% for i in range(p.pages) %}
+            {% if p.page == i + 1 %}
+                <li class="page-item active">
+                    {% else %}
+                <li class="page-item">
+            {% endif %}
+        <a class="page-link" href="/paginate/?page={{ i + 1 }}&per_page=3">{{ i + 1 }}</a>
+        </li>
+        {% endfor %}
+
+        <li class="page-item">
+            {% if p.has_next %}
+                <a class="page-link" href="/paginate/?page={{ p.next_num }}" aria-label="Next">
+            {% else %}
+                <a class="page-link" href="javascript:" aria-label="Next">
+            {% endif %}
+            <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
