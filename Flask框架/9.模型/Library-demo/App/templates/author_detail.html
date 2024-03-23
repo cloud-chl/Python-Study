@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library</title>
+</head>
+<body>
+    <h2>作者详情</h2>
+    <hr>
+
+    <p>作者名称：{{ author.name }}</p>
+    <p>年龄：{{ author.age }}</p>
+    <p>性别：{{ author.sex }}</p>
+    <p>邮箱：{{ author.email }}</p>
+    <p>作品：
+        {% for book in author.books%}
+            <a href="/bookdetail/{{ book.id }}/">{{ book.title }}</a>
+            {% if not loop.last %}|{% endif %}
+        {% endfor %}
+    </p>
+</body>
+</html>
