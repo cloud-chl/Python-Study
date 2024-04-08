@@ -75,7 +75,7 @@
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
             <div class="row">
-                <form action="" method="post" class="add-article-form"
+                <form action="/admin/updatearticle/{{ article.id }}/" method="post" class="add-article-form"
                       enctype="multipart/form-data">
                     <div class="col-md-9">
                         <h1 class="page-header">修改文章</h1>
@@ -116,7 +116,7 @@
                                     {% for category in categorys %}
                                         <li>
                                             <label>
-                                                <input name="category" type="radio" checked>{{ category.name }}
+                                                <input name="category" value="{{ category.id }}" type="radio" checked>{{ category.name }}
                                             </label>
                                         </li>
                                     {% endfor %}

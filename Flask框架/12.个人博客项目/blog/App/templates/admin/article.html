@@ -112,8 +112,8 @@
                                 </td>
                                 <td>{{ article.category.name }}</td>
                                 <td>
-                                    <a href="#">修改</a>
-                                    <a href="/admin/delarticle/" aid="{{ article.id }}">删除</a>
+                                    <a href="/admin/updatearticle/{{ article.id }}">修改</a>
+                                    <a href="/admin/delarticle/" class="del-link" aid="{{ article.id }}">删除</a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -160,25 +160,32 @@
 <script src="/static/admin/js/bootstrap.min.js"></script>
 <script src="/static/admin/js/admin-scripts.js"></script>
 <script>
-    //是否确认删除
     $(function () {
-        $("#main table tbody tr td a").click(function () {
-            var that = $(this);
-            var id = that.attr("aid");  //对应id
-            if (event.srcElement.outerText === "删除") {
-                if (window.confirm("此操作不可逆，是否确认？")) {
+    $("#main table tbody tr td a.del-link").click(function (event) {
+        event.preventDefault();  // 阻止默认的GET行为
+        var that = $(this);
+        var id = that.attr("aid");
 
-                    //点击删除按钮
-                    $.post('/admin/delcategory/', {'id': id}, function(data){
-                        if (data.code == 200) {
-                            location.reload();
-                        }
-                    })
-
+        if (confirm("此操作不可逆，是否确认？")) {
+            $.ajax({
+                url: '/admin/delarticle/',
+                method: 'POST', 
+                data: { 'id': id },
+                success: function(data) {
+                    if (data.code == 200) {
+                        location.reload();
+                    } else {
+                        alert('删除过程中发生错误: ' + data.msg);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('请求失败:', textStatus, ', 错误:', errorThrown);
+                    alert('服务器响应错误，请稍后再试');
                 }
-            }
-        });
+            });
+        }
     });
+});
 </script>
 </body>
 </html>

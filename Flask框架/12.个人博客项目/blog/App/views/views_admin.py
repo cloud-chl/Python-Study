@@ -142,14 +142,12 @@ def admin_del_category():
 @login_required
 def admin_update_category(id):
 
-    category = CategoryModel.query.get(id)
-
     if request.method == 'POST':
         name = request.form.get('name')
         describe = request.form.get('describe')
 
         # 修改
-        # category = CategoryModel.query.get(id)
+        category = CategoryModel.query.get(id)
         category.name = name
         category.describe = describe
         try:
@@ -194,6 +192,7 @@ def admin_add_article():
         # 图片存储路径
         img_name = f'{time.time()}-{img.filename}'
         img_url = f'/static/home/uploads/{img_name}'
+        print(category)
 
         # 添加文章
         try:
@@ -203,7 +202,6 @@ def admin_add_article():
             article.content = content
             article.category_id = category
             article.img = img_url
-
             db.session.add(article)
             db.session.commit()
         except Exception as e:
@@ -221,31 +219,54 @@ def admin_add_article():
 
 
 # 后台管理-更新文章
-@admin.route('/admin/updatearticle/', methods=['GET', 'POST'])
+@admin.route('/admin/updatearticle/<id>/', methods=['GET', 'POST'])
 @login_required
-def admin_update_article():
-    return render_template('admin/article_update.html',
-                           username=request.user.name,
-                           )
+def admin_update_article(id):
+
+    if request.method == 'POST':
+        name = request.form.get('name')
+        keywords = request.form.get('keywords')
+        content = request.form.get('content')
+        category = request.form.get('category')
+
+        # 修改文章
+        article = ArticleModel.query.get(id)
+        article.name = name
+        article.keywords = keywords
+        article.content = content
+        article.category_id = category
+
+        try:
+            print(article.category_id)
+            db.session.commit()
+        except Exception as e:
+            print(f'{e}')
+        return redirect('/admin/article/')
+    elif request.method == 'GET':
+        categorys = CategoryModel.query.all()
+        article = ArticleModel.query.get(id)
+        return render_template('admin/article_update.html',
+                                username=request.user.name,
+                                article=article,
+                                categorys=categorys,
+                                )
+
 
 # 后台管理-删除文章
 @admin.route('/admin/delarticle/', methods=['GET', 'POST'])
 @login_required
 def admin_del_article():
-    if request.method == 'POST':
-        id = request.form.get('id')
-        print(id)
-        article = ArticleModel.query.get(id)
-        # 删除文章
-        try:
-            db.session.delete(article)
-            db.session.commit()
-        except Exception as e:
-            print(f'{e}')
-            db.session.rollback()
-            return jsonify({'code': 500, 'msg': f'删除过程中发生错误: {str(e)}'})
-
+    if request.method != 'POST':
         return jsonify({'code': 400, 'msg': '请求方式错误!'})
-
-    return jsonify({'code': 200, 'msg':'删除成功!'})
-
+    
+    id = request.form.get('id')
+    article = ArticleModel.query.get(id)
+    # 删除文章
+    try:
+        db.session.delete(article)
+        db.session.commit()
+        return jsonify({'code': 200, 'msg':'删除成功!'})
+    except Exception as e:
+        print(f'{e}')
+        db.session.rollback()
+        return jsonify({'code': 500, 'msg': f'删除过程中发生错误: {str(e)}'})
