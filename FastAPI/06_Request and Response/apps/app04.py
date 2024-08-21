@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Form
 from typing import List, Union, Optional
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, validator
 from datetime import date
 
 from starlette.datastructures import FormData
