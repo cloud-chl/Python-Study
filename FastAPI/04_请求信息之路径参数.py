@@ -20,4 +20,4 @@ async def read_user(username: str):
     return {"username": username}
 
 if __name__ == '__main__':
-    uvicorn.run("fastapi_quickstart:app",port=8080, reload=True)
+    uvicorn.run("04_请求信息之路径参数:app",port=8080, reload=True)
