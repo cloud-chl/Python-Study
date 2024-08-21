@@ -22,4 +22,4 @@ app.include_router(app06, tags=["06 Request对象"])
 app.include_router(app07, tags=["07 响应参数"])
 
 if __name__ == '__main__':
-    uvicorn.run("main:app", port=8080, reload=True)
+    uvicorn.run("main:app", port=8000, reload=True)
