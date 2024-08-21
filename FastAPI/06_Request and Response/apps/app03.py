@@ -3,7 +3,6 @@ from typing import List, Union, Optional
 from pydantic import BaseModel, Field, validator
 from datetime import date
 
-
 app03 = APIRouter()
 
 class Addr(BaseModel):
@@ -15,7 +14,8 @@ class User(BaseModel):
     name: str
     age: int = Field(default=1, gt=0, lt=100)
     birth: Union[date, None] = None
-    friends: List[int] = []
+    # friends: List[int] = []
+    friends: List[str] = []
     description: Optional[str] = None
     addr: Addr
 
