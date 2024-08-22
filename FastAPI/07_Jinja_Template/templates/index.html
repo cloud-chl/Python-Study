@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>用户名：{{ user }}</p>
+<p>书籍：</p>
+    {% for book in books %}
+        <p>{{ book }}</p>
+    {% endfor %}
+<br>
+<ul>
+    <li>{{ books.0 }}</li>
+    <li>{{ books.1 }}</li>
+    <li>{{ books.2 }}</li>
+    <li>{{ books.3 }}</li>
+</ul>
+<br>
+<p>姓名：{{ info.name }}</p>
+<p>年龄：{{ info.age }}</p>
+<p>性别：{{ info.gender }}</p>
+<br>
+<p>pai: {{ pai | round(3) }}</p>
+<p>pai: {{ pai | round(5) }}</p>
+</body>
+</html>
