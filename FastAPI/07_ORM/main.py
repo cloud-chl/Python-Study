@@ -12,3 +12,9 @@ register_tortoise(
 
 if __name__ == '__main__':
     uvicorn.run("main:app", port=8080, reload=True)
+
+    # aerich init -t settings.TORTOISE_ORM
+    # aerich init-db
+    # aerich migrate
+    # aerich upgrade
+    # aerich downgrade
